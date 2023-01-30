@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/sucredoux/movies-explorer-api/issues"
   },
-  "homepage": "https://github.com/sucredoux/movies-explorer-api#readme"
+  "homepage": "https://github.com/sucredoux/movies-explorer-api#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
