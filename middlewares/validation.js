@@ -11,15 +11,18 @@ const validateAuthBody = celebrate({
     })
       .messages({
         'any.required': 'Обязательное поле',
+        'string.empty': 'Поле не может быть пустым',
       }),
     password: Joi.string().required()
       .messages({
         'any.required': 'Обязательное поле',
+        'string.empty': 'Поле не может быть пустым',
       }),
     name: Joi.string().min(2).max(30)
       .messages({
         'string.min': 'Минимальная длина поля 2 символа',
         'string.max': 'Максимальная длина поля 30 символов',
+        'string.empty': 'Поле не может быть пустым',
       }),
   },
 });
@@ -35,18 +38,18 @@ const validateUserInfo = celebrate({
       .messages({
         'string.min': 'Минимальная длина поля 2 символа',
         'string.max': 'Максимальная длина поля 30 символов',
+        'string.empty': 'Поле не может быть пустым',
       }),
-    about: Joi.string().min(2).max(30)
-      .messages({
-        'string.min': 'Минимальная длина поля 2 символа',
-        'string.max': 'Максимальная длина поля 30 символов',
-      }),
-    avatar: Joi.string().custom((value, helpers) => {
-      if (validator.isURL(value)) {
+    email: Joi.string().required().custom((value, helpers) => {
+      if (validator.isEmail(value)) {
         return value;
       }
-      return helpers.message('Невалидная ссылка');
-    }),
+      return helpers.message('Невалидный email');
+    })
+      .messages({
+        'any.required': 'Обязательное поле',
+        'string.empty': 'Поле не может быть пустым',
+      }),
   }),
 });
 
@@ -65,19 +68,23 @@ const validateMovieInfo = celebrate({
     director: Joi.string().required()
       .messages({
         'any.required': 'Обязательное поле',
+        'string.empty': 'Поле не может быть пустым',
       }),
     duration: Joi.number().required()
       .messages({
         'any.required': 'Обязательное поле',
         'any.number': 'Длительность должна быть числом',
+        'string.empty': 'Поле не может быть пустым',
       }),
-    year: Joi.number().integer().required()
+    year: Joi.string().required()
       .messages({
         'any.required': 'Обязательное поле',
+        'string.empty': 'Поле не может быть пустым',
       }),
     description: Joi.string().required()
       .messages({
         'any.required': 'Обязательное поле',
+        'string.empty': 'Поле не может быть пустым',
       }),
     image: Joi.string().required().custom((value, helpers) => {
       if (validator.isURL(value)) {
@@ -87,6 +94,7 @@ const validateMovieInfo = celebrate({
     })
       .messages({
         'any.required': 'Обязательное поле',
+        'string.empty': 'Поле не может быть пустым',
       }),
     trailerLink: Joi.string().required().custom((value, helpers) => {
       if (validator.isURL(value)) {
@@ -95,6 +103,7 @@ const validateMovieInfo = celebrate({
       return helpers.message('Невалидная ссылка');
     }).messages({
       'any.required': 'Обязательное поле',
+      'string.empty': 'Поле не может быть пустым',
     }),
     thumbnail: Joi.string().required().custom((value, helpers) => {
       if (validator.isURL(value)) {
@@ -104,30 +113,22 @@ const validateMovieInfo = celebrate({
     })
       .messages({
         'any.required': 'Обязательное поле',
+        'string.empty': 'Поле не может быть пустым',
       }),
     movieId: Joi.string().hex()
       .messages({
         'any.required': 'Обязательное поле',
         'any.messages': 'Невалидный id',
       }),
-    nameRU: Joi.string().required()/*.custom((value, helpers) => {
-      if (!validator.isAlphanumeric(value, 'ru-RU', ' ')) {
-        return helpers.message('Некорректный язык ввода');
-      }
-      return value;
-    })*/
+    nameRU: Joi.string().required()
       .messages({
-        'any.alphanum': 'Language not correct',
         'any.required': 'Обязательное поле',
+        'string.empty': 'Поле не может быть пустым',
       }),
-    nameEN: Joi.string()/*.custom((value, helpers) => {
-      if (validator.isAlphanumeric(value, 'en-US')) {
-        return value;
-      }
-      return helpers.message('Некорректный язык ввода');
-    })*/
+    nameEN: Joi.string().required()
       .messages({
         'any.required': 'Обязательное поле',
+        'string.empty': 'Поле не может быть пустым',
       }),
   }),
 });

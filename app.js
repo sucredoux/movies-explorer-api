@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -7,7 +8,6 @@ const { errors } = require('celebrate');
 const routes = require('./routes');
 const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-require('dotenv').config();
 
 const { PORT, MONGO_URL } = process.env;
 
@@ -24,7 +24,7 @@ app.use(requestLogger);
 app.use(routes);
 
 app.use(errorLogger);
-routes.use(errors());
+app.use(errors());
 app.use(errorHandler);
 
 async function connect() {
