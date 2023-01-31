@@ -40,14 +40,13 @@ const validateUserInfo = celebrate({
         'string.max': 'Максимальная длина поля 30 символов',
         'string.empty': 'Поле не может быть пустым',
       }),
-    email: Joi.string().required().custom((value, helpers) => {
+    email: Joi.string().custom((value, helpers) => {
       if (validator.isEmail(value)) {
         return value;
       }
       return helpers.message('Невалидный email');
     })
       .messages({
-        'any.required': 'Обязательное поле',
         'string.empty': 'Поле не может быть пустым',
       }),
   }),
