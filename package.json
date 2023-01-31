@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/sucredoux/movies-explorer-api/issues"
   },
-  "homepage": "https://github.com/sucredoux/movies-explorer-api#readme"
+  "homepage": "https://github.com/sucredoux/movies-explorer-api#readme",
+  "dependencies": {
+    "express-rate-limit": "^6.7.0",
+    "helmet": "^6.0.1"
+  }
 }
