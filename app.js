@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -31,7 +32,7 @@ async function connect() {
   await mongoose.connect(MONGO_URL);
   console.log('Server connect db');
   await app.listen(PORT);
-  console.log('App listening on port ${PORT}');
+  console.log(`App listening on port ${PORT}`);
 }
 
 connect();

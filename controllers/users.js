@@ -31,7 +31,7 @@ const createUser = async (req, res, next) => {
     }
     return next(err);
   }
-}
+};
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -63,7 +63,7 @@ const getUser = async (req, res, next) => {
   }
 };
 
-const updateUser = async (req, res, next ) => {
+const updateUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndUpdate(
       req.user._id,

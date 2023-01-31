@@ -96,7 +96,7 @@ const setLike = async (req, res, next) => {
     return res.status(OK).send(movie);
   } catch (err) {
     if (err.name === 'CastError') {
-      next(new BadRequestErr('Переданы некорректные данные '))
+      next(new BadRequestErr('Переданы некорректные данные '));
     }
     return next(err);
   }
