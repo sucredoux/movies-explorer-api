@@ -1,25 +1,25 @@
 const jwt = require('jsonwebtoken');
+const { JWT_KEY } = require('../constants/config');
+const { AUTH_NEEDED } = require('../constants/messages');
 const { AuthErr } = require('../errors');
-
-const { NODE_ENV, JWT_SECRET_KEY } = process.env;
 
 const auth = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    throw new AuthErr(AuthErr.message);
+    throw new AuthErr(AUTH_NEEDED);
   }
   const token = authorization.replace('Bearer ', '');
 
   if (!token) {
-    throw new AuthErr(AuthErr.message);
+    throw new AuthErr(AUTH_NEEDED);
   }
   let payload;
   try {
-    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET_KEY : 'dev_secret');
+    payload = jwt.verify(token, JWT_KEY);
   } catch (err) {
     if (err.name === 'JsonWebTokenError') {
-      throw new AuthErr(AuthErr.message);
+      throw new AuthErr(AUTH_NEEDED);
     } else {
       next(err);
     }

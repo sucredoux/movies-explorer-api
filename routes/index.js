@@ -4,6 +4,7 @@ const userRoutes = require('./users');
 const movieRoutes = require('./movies');
 const auth = require('../middlewares/auth');
 const { NotFoundErr } = require('../errors');
+const { NO_PAGE } = require('../constants/messages');
 
 const routes = express.Router();
 
@@ -11,12 +12,8 @@ routes.use('/', authRoutes);
 routes.use('/users', auth, userRoutes);
 routes.use('/movies', auth, movieRoutes);
 
-routes.use('/', express.json(), auth, (req, res, next) => {
-  try {
-    throw new NotFoundErr('Страница не найдена');
-  } catch (err) {
-    next(err);
-  }
+routes.use('/', auth, (req, res, next) => {
+  next(new NotFoundErr(NO_PAGE));
 });
 
 module.exports = routes;

@@ -4,7 +4,7 @@ const NOT_FOUND = 404;
 
 const DUPLICATE_USER = 409;
 
-const SERVER_ERROR = 500;
+const SERVER_CODE = 500;
 
 const OK = 200;
 
@@ -14,12 +14,12 @@ const AUTH = 401;
 
 const FORBIDDEN = 403;
 
-const MONGO_DUPLICATE = 11000;
+const MONGO_DUPLICATE = 409;
 
 module.exports = {
   BAD_REQUEST,
   NOT_FOUND,
-  SERVER_ERROR,
+  SERVER_CODE,
   OK,
   CREATED,
   AUTH,
