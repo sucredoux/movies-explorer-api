@@ -31,7 +31,7 @@ const validateAuthBody = celebrate({
   },
 });
 
-const validateUserInfo = celebrate({
+const validateNewUserInfo = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30).required()
       .messages({
@@ -51,6 +51,28 @@ const validateUserInfo = celebrate({
         'string.empty': NOT_TO_BE_EMPTY,
       }),
     password: Joi.string().required()
+      .messages({
+        'any.required': REQUIRED_FIELD,
+        'string.empty': NOT_TO_BE_EMPTY,
+      }),
+  }),
+});
+
+const validateUserInfo = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30).required()
+      .messages({
+        'any.required': REQUIRED_FIELD,
+        'string.min': MAX_LENGTH_NAME,
+        'string.max': MIN_LENGTH_NAME,
+        'string.empty': NOT_TO_BE_EMPTY,
+      }),
+    email: Joi.string().required().custom((value, helpers) => {
+      if (validator.isEmail(value)) {
+        return value;
+      }
+      return helpers.message(INVALID_EMAIL);
+    })
       .messages({
         'any.required': REQUIRED_FIELD,
         'string.empty': NOT_TO_BE_EMPTY,
@@ -145,6 +167,7 @@ const validateMovieId = celebrate({
 
 module.exports = {
   validateAuthBody,
+  validateNewUserInfo,
   validateUserInfo,
   validateMovieInfo,
   validateMovieId,

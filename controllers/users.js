@@ -17,7 +17,11 @@ const createUser = async (req, res, next) => {
   try {
     const hash = await bcrypt.hash(password, SALT_ROUNDS);
     const newUser = await User.create({ name, email, password: hash });
-    return res.status(CREATED).send(newUser);
+    return res.status(CREATED).send({
+      name: newUser.name,
+      email: newUser.email,
+      _id: newUser._id,
+    });
   } catch (err) {
     if (err.name === 'ValidationError') {
       return next(new BadRequestErr(INCORRECT_DATA));
