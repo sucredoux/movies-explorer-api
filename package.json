@@ -18,6 +18,7 @@
   "bugs": {
     "url": "https://github.com/sucredoux/movies-explorer-api/issues"
   },
+
   "homepage": "./",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -40,5 +41,6 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
     "nodemon": "^2.0.20"
+
   }
 }
